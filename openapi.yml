@@ -1,0 +1,143 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger REST Article
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+
+
+
+paths:
+                
+  /notebook:
+    get:
+      operationId: notebook.getAllNotebook
+      tags:
+        - Notebook
+      summary: Read the entire list of notebook
+      description: Read the list of notebook
+      responses:
+        200:
+          description: "Successful read notebook list operation"
+          schema:
+            type: array
+            items:
+              properties:
+                notebook_name:
+                  type: string
+                notebook_id:
+                  type: integer
+                createdDate:
+                  type: string
+          examples:
+            success:
+              value:
+                - name: 'first notebook'
+                  id: 5
+                  createdDate: '2020-03-27 21:00:00' 
+                    
+                - name: 'second notebook'
+                  id: 3
+                  createdDate: '2020-03-27 22:00:00' 
+               
+    post:
+      operationId: notebook.newNotebook
+      tags:
+        - Notebook
+      summary: Create a notebook and add it to the notebooks list
+      description: Create a new notebook in the notebooks list
+      parameters:
+        - name: notebook
+          in: body
+          description: Notebook to create
+          required: True
+          schema:
+            type: object
+            properties:
+              notebook_name:
+                type: string
+                description:  name of notebook to create
+
+      responses:
+        201:
+          description: Successfully created notebook in list
+          schema:
+            type: object
+            properties:
+              notebook_id:
+                type: integer
+              notebook_name:
+                type: string
+              createdDate:
+                  type: string
+         
+
+  /notebook/{notebook_id}:
+    get:
+      operationId: "notebook.getNotebookById"
+      tags:
+        - "Notebook"
+      summary: Read one notebook from the notebooks list
+      description: Read one notebook from the notebooks list
+      parameters:
+        - name: notebook_id
+          in: path
+          description: "id"
+          type: integer
+          required: True
+      responses:
+        201:
+          description: Successfully read notebook from notebooks list operation
+          schema:
+            properties:
+              notebook_name:
+                type: "string"
+              notebook_id:
+                type: integer
+              createdDate:
+                type: "string"             
+
+    put:
+      operationId: notebook.updateNotebook
+      tags:
+        - Notebook
+      summary: Update a notebook in the notebooks list
+      description: Update a notebook in the notebooks list
+      parameters:
+        - name: notebook_id
+          in: path
+          description: "id of the notebook to update in the list"
+          type: integer
+          required: True
+
+        - name: notebook
+          in: body
+          schema:
+            type: object
+            properties:
+              notebook_name:
+                type: string
+
+      responses:
+        200:
+          description: Successfully updated notebook
+
+    delete:
+      operationId: notebook.deleteNotebook
+      tags:
+        - Notebook
+      summary: Delete a notebook from the notebooks list
+      description: Delete a notebook
+      parameters:
+        - name: notebook_id
+          in: path
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a notebook from notebook list
