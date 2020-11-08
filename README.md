@@ -15,4 +15,4 @@ Setup the environment (look Pipfile for dependencies to install) and launch the 
 connexion run --mock all openapi.yml
 ```
 The API server is up and running, with mocked responses where implementation is not available. 
-Browse to [http://localhost:5000/api/ui](http://localhost:5000/api/ui) to access SwaggerUI.
+Browse to [http://localhost:5001/api/ui](http://localhost:5001/api/ui) to access SwaggerUI.
