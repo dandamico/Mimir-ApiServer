@@ -16,8 +16,40 @@ paths:
                 
   /notebook:
 
+    get:
+      operationId: notebook.getAllNotebook
+      tags:
+        - Notebook
+      summary: Read the entire list of notebook
+      description: Read the list of notebook
+      responses:
+        200:
+          description: "Successful read notebook list operation"
+          schema:
+            type: array
+            items:
+              properties:
+                notebook_id:
+                  type: integer
+                notebook_name:
+                  type: string
+                createdDate:
+                  type: string
+          examples:
+            success:
+              value:
+                - notebook_id: 1
+                  notebook_name: 'first notebook'
+                  createdDate: '2020-03-27 21:00:00' 
+                    
+                - notebook_id: 2
+                  notebook_name: 'second notebook'
+                  createdDate: '2020-03-27 22:00:00' 
+
     post:
       operationId: notebook.newNotebook
+      tags:
+        - Notebook
       summary: Create a notebook and add it to the notebooks list
       description: Create a new notebook in the notebooks list
       parameters:
@@ -47,41 +79,15 @@ paths:
           examples:
             success:
               value:
-                - notebook_name: 'New Notebook'
-                  notebook_id: 20
+                - notebook_id: 3
+                  notebook_name: 'New Notebook'
                   createdDate: '2020-10-31 21:05:46'
-
-    get:
-      operationId: notebook.getAllNotebook
-      summary: Read the entire list of notebook
-      description: Read the list of notebook
-      responses:
-        200:
-          description: "Successful read notebook list operation"
-          schema:
-            type: array
-            items:
-              properties:
-                notebook_name:
-                  type: string
-                notebook_id:
-                  type: integer
-                createdDate:
-                  type: string
-          examples:
-            success:
-              value:
-                - notebook_name: 'first notebook'
-                  notebook_id: 1
-                  createdDate: '2020-03-27 21:00:00' 
-                    
-                - notebook_name: 'second notebook'
-                  notebook_id: 2
-                  createdDate: '2020-03-27 22:00:00' 
 
   /notebook/{notebook_id}:
     get:
       operationId: "notebook.getNotebookById"
+      tags:
+        - Notebook
       summary: Read one notebook from the notebooks list
       description: Read one notebook from the notebooks list
       parameters:
@@ -95,22 +101,24 @@ paths:
           description: Successfully read notebook from notebooks list operation
           schema:
             properties:
-              notebook_name:
-                type: "string"
               notebook_id:
                 type: integer
+              notebook_name:
+                type: "string"
               createdDate:
                 type: "string"
 
           examples:
             success:
               value:
-                - notebook_name: 'first notebook'
-                  notebook_id: 1
+                - notebook_id: 1
+                  notebook_name: 'first notebook'
                   createdDate: '2020-10-31 21:05:46'
 
     put:
       operationId: notebook.updateNotebook
+      tags:
+        - Notebook
       summary: Update a notebook in the notebooks list
       description: Update a notebook in the notebooks list
       parameters:
@@ -133,23 +141,25 @@ paths:
           description: Successfully updated notebook from notebooks list operation
           schema:
             properties:
-              notebook_name:
-                type: "string"
               notebook_id:
                 type: integer
+              notebook_name:
+                type: "string"
               createdDate:
                 type: "string"
 
           examples:
             success:
               value:
-                - notebook_name: 'new notebook name'
-                  notebook_id: 1
+                - notebook_id: 1
+                  notebook_name: 'new notebook name'
                   createdDate: '2020-10-31 21:05:46'
 
 
     delete:
       operationId: notebook.deleteNotebook
+      tags:
+        - Notebook
       summary: Delete a notebook from the notebooks list
       description: Delete a notebook
       parameters:
@@ -161,10 +171,11 @@ paths:
         200:
           description: Successfully deleted a notebook from notebook list
 
-
   /training:
     get:
       operationId: training.getAllTraining
+      tags:
+        - Training
       summary: Read the entire list of training
       description: Read the list of training
       responses:
@@ -174,10 +185,10 @@ paths:
             type: array
             items:
               properties:
-                training_name:
-                  type: string
                 training_id:
                   type: integer
+                training_name:
+                  type: string
                 createdDate:
                   type: string
                 endpoints:
@@ -195,16 +206,38 @@ paths:
           examples:
             success:
               value:
-                - training_name: 'first training'
-                  training_id: 5
-                  createdDate: '2020-03-27 21:00:00' 
+                - training_id: 5
+                  training_name: 'first training'
+                  createdDate: '2020-03-27 21:00:00'
+                  endpoints:
+                    - endpoint_id: 1
+                      training_id: 5
+                      endpoint_name: 'my first endpoint'
+                      createdDate: '2020-03-27 20:00:00'
+
+                    - endpoint_id: 2
+                      training_id: 5
+                      endpoint_name: 'my second endpoint'
+                      createdDate: '2020-03-27 20:00:00'
                     
-                - training_name: 'second training'
-                  training_id: 3
+                - training_id: 3
+                  training_name: 'second training'
                   createdDate: '2020-03-27 22:00:00' 
+                  endpoints:
+                    - endpoint_id: 3
+                      training_id: 3
+                      endpoint_name: 'my first endpoint'
+                      createdDate: '2020-03-27 20:00:00'
+
+                    - endpoint_id: 4
+                      training_id: 3
+                      endpoint_name: 'my second endpoint'
+                      createdDate: '2020-03-27 20:00:00'
                   
     post:
       operationId: training.newTraining
+      tags:
+        - Training
       summary: Create a training and add it to the trainings list
       description: Create a new training in the trainings list
       parameters:
@@ -241,6 +274,8 @@ paths:
   /training/{training_id}:
     put:
       operationId: training.updateTraining
+      tags:
+        - Training
       summary: Update a training in the trainings list
       description: Update a training in the trainings list
       parameters:
@@ -272,6 +307,8 @@ paths:
 
     get:
       operationId: training.getTrainingById
+      tags:
+        - Training
       summary: Read one training from the trainings list
       description: Read one training from the trainings list
       parameters:
@@ -308,10 +345,17 @@ paths:
               value:
                 training_id: 7
                 training_name: 'my training'
-                createdDate: '2020-03-26 21:02:00'              
+                createdDate: '2020-03-26 21:02:00'
+                endpoints:
+                  - training_id: 7
+                    endpoint_id: 3
+                    endpoint_name: 'first endpoint'
+                    createdDate: '2020-03-26 20:00:00'              
 
     delete:
       operationId: training.deleteTraining
+      tags:
+        - Training
       summary: Delete a training from the trainings list
       description: Delete a training
       parameters:
@@ -326,6 +370,8 @@ paths:
   /endpoints:
     get:
       operationId: endpoint.getAllEndpoint
+      tags:
+        - Endpoint
       summary: Read the entire list of endpoint
       description: Read the list of endpoint
       responses:
@@ -335,40 +381,35 @@ paths:
             type: array
             items:
               properties:
-                endpoint_name:
-                  type: string
                 endpoint_id:
                   type: integer
+                endpoint_name:
+                  type: string
                 createdDate:
                   type: string
-                training:
-                  type: object
-                  properties:
-                    training_id:
-                      type: integer
-                    training_name:
-                      type: string
-                    createdDate:
-                      type: string
+                training_id:
+                  type: integer
 
           examples:
             success:
               value:
-                - endpoint_name: 'first'
-                  endpoint_id: 5
+                - endpoint_id: 5
+                  endpoint_name: 'first endpoint'
                   createdDate: '2020-03-27 21:00:00'
-                  training_id: 4
+                  training_id: 1
 
 
-                - endpoint_name: 'second'
-                  endpoint_id: 3
+                - endpoint_id: 3
+                  endpoint_name: 'second endpoint'
                   createdDate: '2020-03-27 22:00:00' 
-                  training_id: 7
+                  training_id: 2
                   
-
-  /training/{training_id}/endpoints:             
+                  
+  /training/{training_id}/endpoints/endpoint:             
     post:
       operationId: endpoint.newEndpoint
+      tags:
+        - Endpoint
       summary: Create a endpoint and add it to the endpoints list
       description: Create a new endpoint in the endpoints list
       parameters:
@@ -394,27 +435,27 @@ paths:
             properties:
               endpoint_id:
                 type: integer
+              training_id:
+                type: integer
               endpoint_name:
                 type: string
               createdDate:
                 type: string
-              training_id:
-                type: integer
-
           examples:
             success:
               value:
-                endpoint_name: 'newEndpoint'
-                endpoint_id: 14      
-                createdDate: '2020-03-27 19:00:02'
+                endpoint_id: 14
                 training_id: 56
+                endpoint_name: 'newEndpoint'      
+                createdDate: '2020-03-27 19:00:02'
         409:
           description: 'Endpoint already exists'
 
-
-  /training/{training_id}/endpoints/{endpoint_id}:
+  /training/{training_id}/endpoint/{endpoint_id}:
     put:
       operationId: endpoint.updateEndpoint
+      tags:
+        - Endpoint
       summary: Update a endpoint in the endpoints list
       description: Update a endpoint in the endpoints list
       parameters:
@@ -454,6 +495,8 @@ paths:
 
     get:
       operationId: "endpoint.getEndpointById"
+      tags:
+        - Endpoint
       summary: Read one endpoint from the endpoints list
       description: Read one endpoint from the endpoints list
       parameters:
@@ -472,29 +515,30 @@ paths:
           description: Successfully read endpoint from endpoints list operation
           schema:
             properties:
-              endpoint_name:
-                type: "string"
               endpoint_id:
                 type: integer
-              createdDate:
-                type: "string"
               training_id:
                 type: integer
-
+              endpoint_name:
+                type: "string"
+              createdDate:
+                type: "string"
 
           examples:
             success:
               value:
                 endpoint_id: 7
+                training_id: 9 
                 endpoint_name: 'OneEndpoint'
-                createdDate: '2020-03-26 21:02:00'
-                training_id: 9              
+                createdDate: '2020-03-26 21:02:00'             
 
         404:
           description: 'Unable to find the endpoint with given endpoint_id'
 
     delete:
       operationId: endpoint.deleteEndpoint
+      tags:
+        - Endpoint
       summary: Delete a endpoint from the endpoints list
       description: Delete a endpoint
       parameters:

@@ -6,15 +6,12 @@
 This project needs 'pipenv' :
 ```
 pip install pipenv
-pip install connexion
-pip install connexion[swagger-ui]
+pipenv shell
 ```
 
 ### Setup and launch
-Setup the environment and launch the server with the following (you can add `-v` and `-d` to connexion for more verbose output):
+Setup the environment (look Pipfile for dependencies to install) and launch the server with the following (you can add `-v` and `-d` to connexion for more verbose output):
 ```
-pipenv install
-pipenv shell
 connexion run --mock all openapi.yml
 ```
 The API server is up and running, with mocked responses where implementation is not available. 

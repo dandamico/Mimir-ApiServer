@@ -41,7 +41,7 @@ class Training(db.Model):
 			"training_id": self.training_id,
 			"training_name": self.training_name,
 			"createdDate": str(datetime.now()),
-			"endpoints": self.endpoints.count()
+			"endpoints_count": self.endpoints.count()
 		}
 
 	def deserialize(self, data):
@@ -61,7 +61,6 @@ class Endpoint(db.Model):
 	endpoint_name = db.Column(db.String(120))
 	createdDate = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 	training_id = db.Column(db.Integer, db.ForeignKey('training.training_id'))
-	#Column(db.Integer, db.ForeignKey("training.training_id"), unique= True)
 
 	def serialize(self):
 		return {

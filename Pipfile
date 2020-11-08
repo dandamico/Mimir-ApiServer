@@ -9,9 +9,7 @@ verify_ssl = true
 flask = "*"
 connexion = {extras = ["swagger-ui"],version = "*"}
 flask-sqlalchemy = "*"
-flask-marshmallow = "*"
-marshmallow-sqlalchemy = "*"
-marshmallow = "*"
+
 
 [requires]
 python_version = "3.7"

@@ -9,7 +9,7 @@ def getAllEndpoint():
     return jsonify(endpoints=[endpoint.serialize() for endpoint in endpoints]) 
 
 
-def newEndpoint( training_id, endpoint):
+def newEndpoint(training_id, endpoint):
 
     training = Training.query.filter(Training.training_id == training_id).one_or_none()
     
