@@ -15,40 +15,9 @@ basePath: "/api"
 paths:
                 
   /notebook:
-    get:
-      operationId: notebook.getAllNotebook
-      tags:
-        - Notebook
-      summary: Read the entire list of notebook
-      description: Read the list of notebook
-      responses:
-        200:
-          description: "Successful read notebook list operation"
-          schema:
-            type: array
-            items:
-              properties:
-                notebook_name:
-                  type: string
-                notebook_id:
-                  type: integer
-                createdDate:
-                  type: string
-          examples:
-            success:
-              value:
-                - notebook_name: 'first notebook'
-                  notebook_id: 1
-                  createdDate: '2020-03-27 21:00:00' 
-                    
-                - notebook_name: 'second notebook'
-                  notebook_id: 2
-                  createdDate: '2020-03-27 22:00:00' 
-               
+
     post:
       operationId: notebook.newNotebook
-      tags:
-        - Notebook
       summary: Create a notebook and add it to the notebooks list
       description: Create a new notebook in the notebooks list
       parameters:
@@ -82,12 +51,37 @@ paths:
                   notebook_id: 20
                   createdDate: '2020-10-31 21:05:46'
 
+    get:
+      operationId: notebook.getAllNotebook
+      summary: Read the entire list of notebook
+      description: Read the list of notebook
+      responses:
+        200:
+          description: "Successful read notebook list operation"
+          schema:
+            type: array
+            items:
+              properties:
+                notebook_name:
+                  type: string
+                notebook_id:
+                  type: integer
+                createdDate:
+                  type: string
+          examples:
+            success:
+              value:
+                - notebook_name: 'first notebook'
+                  notebook_id: 1
+                  createdDate: '2020-03-27 21:00:00' 
+                    
+                - notebook_name: 'second notebook'
+                  notebook_id: 2
+                  createdDate: '2020-03-27 22:00:00' 
 
   /notebook/{notebook_id}:
     get:
       operationId: "notebook.getNotebookById"
-      tags:
-        - "Notebook"
       summary: Read one notebook from the notebooks list
       description: Read one notebook from the notebooks list
       parameters:
@@ -117,8 +111,6 @@ paths:
 
     put:
       operationId: notebook.updateNotebook
-      tags:
-        - Notebook
       summary: Update a notebook in the notebooks list
       description: Update a notebook in the notebooks list
       parameters:
@@ -138,12 +130,26 @@ paths:
 
       responses:
         200:
-          description: Successfully updated notebook
+          description: Successfully updated notebook from notebooks list operation
+          schema:
+            properties:
+              notebook_name:
+                type: "string"
+              notebook_id:
+                type: integer
+              createdDate:
+                type: "string"
+
+          examples:
+            success:
+              value:
+                - notebook_name: 'new notebook name'
+                  notebook_id: 1
+                  createdDate: '2020-10-31 21:05:46'
+
 
     delete:
       operationId: notebook.deleteNotebook
-      tags:
-        - Notebook
       summary: Delete a notebook from the notebooks list
       description: Delete a notebook
       parameters:
@@ -159,8 +165,6 @@ paths:
   /training:
     get:
       operationId: training.getAllTraining
-      tags:
-        - Training
       summary: Read the entire list of training
       description: Read the list of training
       responses:
@@ -176,6 +180,18 @@ paths:
                   type: integer
                 createdDate:
                   type: string
+                endpoints:
+                  type: array
+                  items:
+                    properties:
+                      training_id:
+                        type: integer
+                      endpoint_id:
+                        type: integer
+                      endpoint_name:
+                        type: string
+                      createdDate:
+                        type: string
           examples:
             success:
               value:
@@ -189,8 +205,6 @@ paths:
                   
     post:
       operationId: training.newTraining
-      tags:
-        - Training
       summary: Create a training and add it to the trainings list
       description: Create a new training in the trainings list
       parameters:
@@ -224,12 +238,9 @@ paths:
                   training_name: 'a new training'
                   createdDate: '2020-03-27 19:00:02'
 
-
   /training/{training_id}:
     put:
       operationId: training.updateTraining
-      tags:
-        - Training
       summary: Update a training in the trainings list
       description: Update a training in the trainings list
       parameters:
@@ -250,13 +261,17 @@ paths:
       responses:
         200:
           description: Successfully updated training
-
-
+          schema:
+            properties:
+              training_id:
+                type: integer
+              training_name:
+                type: string
+              createdDate:
+                type: string
 
     get:
       operationId: training.getTrainingById
-      tags:
-        - "Training"
       summary: Read one training from the trainings list
       description: Read one training from the trainings list
       parameters:
@@ -266,7 +281,7 @@ paths:
           type: integer
           required: True
       responses:
-        201:
+        200:
           description: Successfully read training from trainings list operation
           schema:
             properties:
@@ -276,6 +291,18 @@ paths:
                 type: integer
               createdDate:
                 type: "string"
+              endpoints:
+                type: array
+                items:
+                  properties:
+                    training_id:
+                      type: integer
+                    endpoint_id:
+                      type: integer
+                    endpoint_name:
+                      type: string
+                    createdDate:
+                        type: string
           examples:
             success:
               value:
@@ -285,8 +312,6 @@ paths:
 
     delete:
       operationId: training.deleteTraining
-      tags:
-        - Training
       summary: Delete a training from the trainings list
       description: Delete a training
       parameters:
@@ -298,12 +323,9 @@ paths:
         200:
           description: Successfully deleted a training from training list
 
-
-  /endpoint:
+  /endpoints:
     get:
       operationId: endpoint.getAllEndpoint
-      tags:
-        - Endpoint
       summary: Read the entire list of endpoint
       description: Read the list of endpoint
       responses:
@@ -319,26 +341,34 @@ paths:
                   type: integer
                 createdDate:
                   type: string
-                endpoint_url:
-                  type: string
+                training:
+                  type: object
+                  properties:
+                    training_id:
+                      type: integer
+                    training_name:
+                      type: string
+                    createdDate:
+                      type: string
+
           examples:
             success:
               value:
                 - endpoint_name: 'first'
                   endpoint_id: 5
                   createdDate: '2020-03-27 21:00:00'
-                  endpoint_url: 'localhost:5000/api/endpoints/5'
+                  training_id: 4
+
 
                 - endpoint_name: 'second'
                   endpoint_id: 3
                   createdDate: '2020-03-27 22:00:00' 
-                  endpoint_url: 'localhost:5000/api/endpoints/3'
+                  training_id: 7
+                  
 
-               
+  /training/{training_id}/endpoints:             
     post:
       operationId: endpoint.newEndpoint
-      tags:
-        - Endpoint
       summary: Create a endpoint and add it to the endpoints list
       description: Create a new endpoint in the endpoints list
       parameters:
@@ -351,6 +381,10 @@ paths:
             properties:
               endpoint_name:
                 type: string
+        - name: training_id
+          in: path
+          type: integer
+          required: True
                 
       responses:
         201:
@@ -358,14 +392,14 @@ paths:
           schema:
             type: object
             properties:
-              endpoint_name:
-                type: string
               endpoint_id:
                 type: integer
+              endpoint_name:
+                type: string
               createdDate:
                 type: string
-              endpoint_url:
-                type: string
+              training_id:
+                type: integer
 
           examples:
             success:
@@ -373,48 +407,64 @@ paths:
                 endpoint_name: 'newEndpoint'
                 endpoint_id: 14      
                 createdDate: '2020-03-27 19:00:02'
-                endpoint_url: 'localhost:5000/api/endpoints/14'
+                training_id: 56
         409:
           description: 'Endpoint already exists'
 
 
-  /endpoint/{endpoint_id}:
+  /training/{training_id}/endpoints/{endpoint_id}:
     put:
       operationId: endpoint.updateEndpoint
-      tags:
-        - Endpoint
       summary: Update a endpoint in the endpoints list
       description: Update a endpoint in the endpoints list
       parameters:
-        - name: endpoint_id
+        - name: training_id
           in: path
-          description: "id of the endpoint to update in the list"
+          description: Id the trainign to update
           type: integer
           required: True
-
+        - name: endpoint_id
+          in: path
+          description: Id of the endpoint associated with a person
+          type: integer
+          required: True
         - name: endpoint
           in: body
           schema:
             type: object
             properties:
-              endpoint_name:
+              content:
                 type: string
+                description: Text content of the note to updated
       responses:
         '200':
           description: 'ok'
+          schema:
+            properties:
+              endpoint_id:
+                type: string
+              training_id:
+                type: string
+              endpoint_name:
+                type: string
+              createdDate:
+                type: string
         '404':
           description: 'not found one endpoint with this id'
 
     get:
       operationId: "endpoint.getEndpointById"
-      tags:
-        - Endpoint
       summary: Read one endpoint from the endpoints list
       description: Read one endpoint from the endpoints list
       parameters:
         - name: endpoint_id
           in: path
           description: "id"
+          type: integer
+          required: True
+
+        - name: training_id
+          in: path
           type: integer
           required: True
       responses:
@@ -428,27 +478,32 @@ paths:
                 type: integer
               createdDate:
                 type: "string"
-              endpoint_url:
-                type: "string"
+              training_id:
+                type: integer
+
 
           examples:
             success:
               value:
                 endpoint_id: 7
                 endpoint_name: 'OneEndpoint'
-                createdDate: '2020-03-26 21:02:00'              
-                endpoint_url: 'localhost:5000/api/endpoints/7'
+                createdDate: '2020-03-26 21:02:00'
+                training_id: 9              
+
         404:
           description: 'Unable to find the endpoint with given endpoint_id'
 
     delete:
       operationId: endpoint.deleteEndpoint
-      tags:
-        - Endpoint
       summary: Delete a endpoint from the endpoints list
       description: Delete a endpoint
       parameters:
         - name: endpoint_id
+          in: path
+          type: integer
+          required: True
+
+        - name: training_id
           in: path
           type: integer
           required: True

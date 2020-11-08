@@ -1,15 +1,13 @@
-from flask import make_response, abort
+from flask import make_response, abort, jsonify, request
 from config import db
-from models import Training, TrainingSchema
+from models import Training, DeserializeTraining, Endpoint
+
 
 
 def getAllTraining():
 
-    training = Training.query.order_by(Training.training_name).all()
-
-    n_schema = TrainingSchema(many=True)
-    data = n_schema.dump(training)
-    return data 
+    trainings = Training.query.order_by(Training.training_name).all()
+    return jsonify(trainings=[training.serialize() for training in trainings]) 
 
 
 def newTraining(training):
@@ -21,37 +19,27 @@ def newTraining(training):
     
     if existing_training is None:
 
-        schema = TrainingSchema()
-        newTraining = schema.load(training)
+        newTraining = Training(training_id = training.get("training_id"), training_name = training.get("training_name"))
 
-        # Add the person to the database
         db.session.add(newTraining)
         db.session.commit()
 
-        # Serialize and return the newly created person in the response
-        data = schema.dump(newTraining)
-        return data, 201
+        return jsonify(newTraining.serialize()), 201
 
-    # Otherwise, nope, person exists already
     else:
         abort(409,"Training {training_name} exists already".format(training_name=training_name),)
 
 
 def getTrainingById(training_id):
 
-    training = Training.query.filter(Training.training_id == training_id).one_or_none()
+    training = Training.query.filter(Training.training_id == training_id).outerjoin(Endpoint).one_or_none()
 
     if training is not None:
-        t_schema = TrainingSchema()
-        data = t_schema.dump(training)
-        return data
+        return jsonify(training.serialize())
 
     else:
         abort(404, "Training not found for Id: {training_id}".format(training_id=training_id),)
     
-
-
-
 
 
 def updateTraining(training_id,training):
@@ -60,20 +48,16 @@ def updateTraining(training_id,training):
     update_training = Training.query.filter(Training.training_id == training_id).one_or_none()
 
     if update_training is not None:
-        schema = TrainingSchema()
-        update = schema.load(training)
+        data = request.get_json()
 
-        update.training_id = update_training.training_id
+        update_training.deserialize(data)
 
-        db.session.merge(update)
         db.session.commit()
 
-        data = schema.dump(update_training)
-
-        return data, 200
+        return jsonify(update_training.serialize()), 200
 
     else:
-        abort(404, f"Training not found for Id: {training_id}")
+        abort(404, "Training not found for Id: {training_id}".format(training_id=traininig_id),)
 
 
 def deleteTraining(training_id):
