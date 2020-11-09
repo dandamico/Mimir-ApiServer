@@ -23,9 +23,7 @@ class Notebook(db.Model):
 			if field in data:
 				setattr(self,field, data[field])
 
-class DeserializeNotebook(object):
-    def __init__(self, notebooks: List[Notebook]):
-        self.notebooks = notebooks
+
 
 
 
@@ -45,13 +43,10 @@ class Training(db.Model):
 		}
 
 	def deserialize(self, data):
-		for field in ['training_id', 'training_name', 'createdDate']:
+		for field in ['training_id', 'training_name', 'createdDate', 'endpoints_count']:
 			if field in data:
 				setattr(self,field, data[field])
 
-class DeserializeTraining(object):
-    def __init__(self, trainings: List[Training]):
-        self.trainings = trainings
 
 
 
@@ -71,10 +66,7 @@ class Endpoint(db.Model):
 		}
 
 	def deserialize(self, data):
-		for field in ['endpoint_id', 'endpoint_name', 'createdDate']:
+		for field in ['endpoint_id', 'endpoint_name', 'createdDate', 'training_id']:
 			if field in data:
 				setattr(self,field, data[field])
 
-class DeserializeEndpoint(object):
-    def __init__(self, endpoints: List[Endpoint]):
-        self.endpoints = endpoints

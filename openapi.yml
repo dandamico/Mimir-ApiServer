@@ -403,9 +403,8 @@ paths:
                   endpoint_name: 'second endpoint'
                   createdDate: '2020-03-27 22:00:00' 
                   training_id: 2
-                  
-                  
-  /training/{training_id}/endpoints/endpoint:             
+                              
+  /endpoints/endpoint:             
     post:
       operationId: endpoint.newEndpoint
       tags:
@@ -422,10 +421,8 @@ paths:
             properties:
               endpoint_name:
                 type: string
-        - name: training_id
-          in: path
-          type: integer
-          required: True
+              training_id:
+                type: integer
                 
       responses:
         201:
@@ -451,7 +448,7 @@ paths:
         409:
           description: 'Endpoint already exists'
 
-  /training/{training_id}/endpoint/{endpoint_id}:
+  /endpoint/{endpoint_id}:
     put:
       operationId: endpoint.updateEndpoint
       tags:
@@ -459,11 +456,6 @@ paths:
       summary: Update a endpoint in the endpoints list
       description: Update a endpoint in the endpoints list
       parameters:
-        - name: training_id
-          in: path
-          description: Id the trainign to update
-          type: integer
-          required: True
         - name: endpoint_id
           in: path
           description: Id of the endpoint associated with a person
@@ -474,9 +466,11 @@ paths:
           schema:
             type: object
             properties:
-              content:
+              endpoint_name:
                 type: string
-                description: Text content of the note to updated
+              training_id:
+                type: integer
+
       responses:
         '200':
           description: 'ok'
@@ -506,10 +500,6 @@ paths:
           type: integer
           required: True
 
-        - name: training_id
-          in: path
-          type: integer
-          required: True
       responses:
         201:
           description: Successfully read endpoint from endpoints list operation
@@ -547,10 +537,6 @@ paths:
           type: integer
           required: True
 
-        - name: training_id
-          in: path
-          type: integer
-          required: True
       responses:
         200:
           description: Successfully deleted a endpoint from endpoint list

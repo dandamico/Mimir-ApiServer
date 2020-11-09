@@ -1,6 +1,6 @@
 from flask import make_response, abort, jsonify, request
 from config import db
-from models import Training, DeserializeTraining, Endpoint
+from models import Training, Endpoint
 
 
 

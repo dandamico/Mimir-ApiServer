@@ -1,6 +1,6 @@
 from flask import make_response, abort, jsonify, request
 from config import db
-from models import Notebook, DeserializeNotebook
+from models import Notebook
 
 def getAllNotebook():
 
@@ -13,7 +13,6 @@ def newNotebook(notebook):
     notebook_name = notebook.get("notebook_name")
 
     existing_notebook = Notebook.query.filter(Notebook.notebook_name == notebook_name).one_or_none()
-
     
     if existing_notebook is None:
 
