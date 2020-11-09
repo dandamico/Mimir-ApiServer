@@ -9,17 +9,22 @@ class Notebook(db.Model):
 	notebook_id = db.Column(db.Integer, primary_key=True)
 	notebook_name = db.Column(db.String(120))
 	createdDate = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
+	docker_image_name = db.Column(db.String(120))
+	deployment_name = db.Column(db.String(120))
+	status = db.Column(db.String(120))
 	
 	def serialize(self):
 		return {
 			"notebook_id": self.notebook_id,
 			"notebook_name": self.notebook_name,
-			"createdDate": str(datetime.now())
+			"createdDate": str(datetime.now()),
+			"docker_image_name": self.docker_image_name,
+			"deployment_name": self.deployment_name,
+			"status": self.status
 		}
 
 	def deserialize(self, data):
-		for field in ['notebook_id', 'notebook_name', 'createdDate']:
+		for field in ['notebook_id', 'notebook_name', 'createdDate', 'docker_image_name', 'deployment_name', 'status']:
 			if field in data:
 				setattr(self,field, data[field])
 
