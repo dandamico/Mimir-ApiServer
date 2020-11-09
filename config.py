@@ -8,7 +8,7 @@ connex_app = connexion.App(__name__,specification_dir=basedir)
 
 app = connex_app.app
 
-sqlite_url = "sqlite:////" + os.path.join(basedir, "mimir.db")
+sqlite_url = "mysql+pymysql://root:0satellite0@localhost/mimir"
 
 app.config["SQLALCHEMY_ECHO"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = sqlite_url

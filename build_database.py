@@ -3,6 +3,7 @@ from config import db
 from models import Notebook, Training, Endpoint
 from datetime import datetime
 
+
 NOTEBOOKS = []
 	
 TRAININGS = []
@@ -21,8 +22,8 @@ for notebook in NOTEBOOKS:
 for training in TRAININGS:
 	t = Training(training_id = training.get("training_id"), training_name = training.get("training_name"))
 	for endpoint in training.get("endpoints"):
-		endpoint_name, createdDate = endpoint
-		n.endpoints.append(Ednpoint(endpoint_name= endpoint_name, createdDate=datetime.strptime(createdDate, "%Y-%m-%d %H:%M:%S")))
+		endpoint_id, endpoint_name, createdDate = endpoint
+		n.endpoints.append(Ednpoint(endpoint_id= endpoint_id, endpoint_name= endpoint_name, createdDate=datetime.strptime(createdDate, "%Y-%m-%d %H:%M:%S")))
 	db.session.add(t)
 
 for endpoint in ENDPOINTS:
