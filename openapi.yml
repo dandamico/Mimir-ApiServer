@@ -35,16 +35,25 @@ paths:
                   type: string
                 createdDate:
                   type: string
+                docker_image_name:
+                  type: string
+                deployment_name:
+                  type: string
           examples:
             success:
               value:
                 - notebook_id: 1
                   notebook_name: 'first notebook'
-                  createdDate: '2020-03-27 21:00:00' 
-                    
+                  createdDate: '2020-03-27 21:00:00'
+                  docker_image_name: 'This is a docker image'
+                  deployment_name: 'deployment'
+  
                 - notebook_id: 2
                   notebook_name: 'second notebook'
-                  createdDate: '2020-03-27 22:00:00' 
+                  createdDate: '2020-03-27 22:00:00'
+                  docker_image_name: 'This is a docker image'
+                  deployment_name: 'deployment'
+
 
     post:
       operationId: notebook.newNotebook
@@ -76,12 +85,21 @@ paths:
                 type: string
               createdDate:
                   type: string
+                docker_image_name:
+                  type: string
+                deployment_name:
+                  type: string
+                status:
+                  type: string
           examples:
             success:
               value:
                 - notebook_id: 3
                   notebook_name: 'New Notebook'
                   createdDate: '2020-10-31 21:05:46'
+                  docker_image_name: 'This is a docker image'
+                  deployment_name: 'deployment'
+                  status: 'Done'
 
   /notebook/{notebook_id}:
     get:
@@ -107,6 +125,11 @@ paths:
                 type: "string"
               createdDate:
                 type: "string"
+              docker_image_name:
+                type: string
+              deployment_name:
+                type: string
+
 
           examples:
             success:
@@ -114,6 +137,8 @@ paths:
                 - notebook_id: 1
                   notebook_name: 'first notebook'
                   createdDate: '2020-10-31 21:05:46'
+                  docker_image_name: 'This is a docker image'
+                  deployment_name: 'deployment'
 
     put:
       operationId: notebook.updateNotebook
@@ -147,13 +172,18 @@ paths:
                 type: "string"
               createdDate:
                 type: "string"
-
+              docker_image_name:
+                 type: string
+              deployment_name:
+                type: string
           examples:
             success:
               value:
                 - notebook_id: 1
                   notebook_name: 'new notebook name'
                   createdDate: '2020-10-31 21:05:46'
+                  docker_image_name: 'This is a docker image'
+                  deployment_name: 'deployment'
 
 
     delete:
@@ -263,13 +293,16 @@ paths:
               training_id:
                 type: integer
               createdDate:
-                  type: string
+                type: string
+              status:
+                type: string
           examples:
             success:
               value:
                   training_id: 14
                   training_name: 'a new training'
                   createdDate: '2020-03-27 19:00:02'
+                  status: 'Done'
 
   /training/{training_id}:
     put:
@@ -438,6 +471,8 @@ paths:
                 type: string
               createdDate:
                 type: string
+              status:
+                type: string
           examples:
             success:
               value:
@@ -445,6 +480,7 @@ paths:
                 training_id: 56
                 endpoint_name: 'newEndpoint'      
                 createdDate: '2020-03-27 19:00:02'
+                status: 'Done'
         409:
           description: 'Endpoint already exists'
 
