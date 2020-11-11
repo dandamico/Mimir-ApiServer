@@ -85,12 +85,12 @@ paths:
                 type: string
               createdDate:
                   type: string
-                docker_image_name:
-                  type: string
-                deployment_name:
-                  type: string
-                status:
-                  type: string
+              docker_image_name:
+                type: string
+              deployment_name:
+                type: string
+              status:
+                type: string
           examples:
             success:
               value:
