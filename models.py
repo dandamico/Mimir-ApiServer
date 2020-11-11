@@ -38,17 +38,19 @@ class Training(db.Model):
 	training_name = db.Column(db.String(120))
 	createdDate = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 	endpoints = db.relationship("Endpoint", backref= "training", cascade= "all, delete, delete-orphan", lazy= 'dynamic')
+	status = db.Column(db.String(120))
 	
 	def serialize(self):
 		return {
 			"training_id": self.training_id,
 			"training_name": self.training_name,
 			"createdDate": str(datetime.now()),
-			"endpoints_count": self.endpoints.count()
+			"endpoints_count": self.endpoints.count(),
+			"status": self.status
 		}
 
 	def deserialize(self, data):
-		for field in ['training_id', 'training_name', 'createdDate', 'endpoints_count']:
+		for field in ['training_id', 'training_name', 'createdDate', 'endpoints_count', 'status']:
 			if field in data:
 				setattr(self,field, data[field])
 
@@ -61,17 +63,19 @@ class Endpoint(db.Model):
 	endpoint_name = db.Column(db.String(120))
 	createdDate = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 	training_id = db.Column(db.Integer, db.ForeignKey('training.training_id'))
+	status = db.Column(db.String(120))
 
 	def serialize(self):
 		return {
 			"endpoint_id": self.endpoint_id,
 			"endpoint_name": self.endpoint_name,
 			"createdDate": str(datetime.now()),
-			"training_id": self.training_id
+			"training_id": self.training_id,
+			"status": self.status
 		}
 
 	def deserialize(self, data):
-		for field in ['endpoint_id', 'endpoint_name', 'createdDate', 'training_id']:
+		for field in ['endpoint_id', 'endpoint_name', 'createdDate', 'training_id', 'status']:
 			if field in data:
 				setattr(self,field, data[field])
 

@@ -13,6 +13,5 @@ mysql-python = "*"
 mysql = "*"
 mysqldb = "*"
 pymysql = "*"
-
 [requires]
 python_version = "3.7"
