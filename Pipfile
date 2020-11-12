@@ -9,9 +9,10 @@ verify_ssl = true
 flask = "*"
 connexion = {extras = ["swagger-ui"],version = "*"}
 flask-sqlalchemy = "*"
-mysql-python = "*"
-mysql = "*"
 mysqldb = "*"
 pymysql = "*"
+mysql = "*"
+mysql-python = "*"
+
 [requires]
 python_version = "3.7"

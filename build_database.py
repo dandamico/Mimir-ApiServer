@@ -1,5 +1,6 @@
 import os
 from config import db
+import config
 from models import Notebook, Training, Endpoint
 from datetime import datetime
 
@@ -10,8 +11,7 @@ TRAININGS = []
 
 ENDPOINTS = []
 
-if os.path.exists("mimir.db"):
-	os.remove("mimir.db")
+config.createDB()
 
 db.create_all()
 
