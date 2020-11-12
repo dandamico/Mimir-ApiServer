@@ -1,8 +1,8 @@
 import os
 import connexion
 from flask_sqlalchemy import SQLAlchemy
-#from sqlalchemy import create_engine
 import mysql.connector as mysql
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 connex_app = connexion.App(__name__,specification_dir=basedir)
@@ -26,15 +26,6 @@ def createDB():
 
 		cursor.execute("CREATE DATABASE mimir")
 
-
-
-#engine = create_engine(sqlite_url)
-'''
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '0satellite0'
-app.config['MYSQL_DB'] = 'mimir'
-'''
 app.config["SQLALCHEMY_ECHO"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = sqlite_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
