@@ -4,19 +4,17 @@ from models import Notebook
 
 def getAllNotebook():
 
-    notebooks = Notebook.query.order_by(Notebook.notebook_name).all()   
+    notebooks = Notebook.query.order_by(Notebook.name).all()   
     return jsonify(notebooks=[notebook.serialize() for notebook in notebooks]) 
 
 
 def newNotebook(notebook):
 
-    notebook_name = notebook.get("notebook_name")
-
-    existing_notebook = Notebook.query.filter(Notebook.notebook_name == notebook_name).one_or_none()
+    existing_notebook = Notebook.query.filter(Notebook.name == notebook.get("name")).one_or_none()
     
     if existing_notebook is None:
 
-        newNotebook = Notebook(notebook_id = notebook.get("notebook_id"), notebook_name = notebook.get("notebook_name"))
+        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"))
 
         db.session.add(newNotebook)
         db.session.commit()
@@ -25,38 +23,38 @@ def newNotebook(notebook):
         return jsonify(newNotebook.serialize()), 201
 
     else:
-        abort(409,"Notebook {notebook_name} exists already".format(notebook_name=notebook_name),)
+        abort(409,"Notebook {name} exists already".format(name= name),)
 
-def getNotebookById(notebook_id):
+def getNotebookById(id):
 
-    notebook = Notebook.query.filter(Notebook.notebook_id == notebook_id).one_or_none()
+    notebook = Notebook.query.filter(Notebook.id == id).one_or_none()
 
     if notebook is not None:
         return jsonify(notebook.serialize())
     else:
-        abort(404, "Notebook not found for Id: {notebook_id}".format(notebook_id=notebook_id),)
+        abort(404, "Notebook not found for Id: {id}".format(id= id),)
     
 
-def deleteNotebook(notebook_id):
+def deleteNotebook(id):
 
-    notebook = Notebook.query.filter(Notebook.notebook_id == notebook_id).one_or_none()
+    notebook = Notebook.query.filter(Notebook.id == id).one_or_none()
 
     if notebook is not None:
         db.session.delete(notebook)
         db.session.commit()
 
         return make_response(
-            "{notebook_id} successfully deleted".format(notebook_id=notebook_id), 200
+            "Notebook with id:{id} successfully deleted".format(id= id), 200
         )
 
     else:
         abort(
-            404, "Notebook with this name: {notebook_id} not found".format(notebook_id=notebook_id)
+            404, "Notebook with this name: {id} not found".format(id= id)
         )
 
-def updateNotebook(notebook_id,notebook):
+def updateNotebook(id,notebook):
 
-    update_notebook = Notebook.query.filter(Notebook.notebook_id == notebook_id).one_or_none()
+    update_notebook = Notebook.query.filter(Notebook.id == id).one_or_none()
 
 
     if update_notebook is not None:
@@ -65,13 +63,13 @@ def updateNotebook(notebook_id,notebook):
         
         update_notebook.deserialize(data)
         
-        #db.session.merge(update_notebook)
+        
         db.session.commit()
 
         return jsonify(update_notebook.serialize()), 200
 
     else:
-        abort(404, "Notebook not found for Id: {notebook_id}".format(notebook_id=notebook_id),)
+        abort(404, "Notebook not found for Id: {id}".format(id= id),)
 
 
 

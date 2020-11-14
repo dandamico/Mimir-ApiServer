@@ -29,11 +29,11 @@ paths:
             type: array
             items:
               properties:
-                notebook_id:
+                id:
                   type: integer
-                notebook_name:
+                name:
                   type: string
-                createdDate:
+                created_date:
                   type: string
                 docker_image_name:
                   type: string
@@ -42,15 +42,15 @@ paths:
           examples:
             success:
               value:
-                - notebook_id: 1
-                  notebook_name: 'first notebook'
-                  createdDate: '2020-03-27 21:00:00'
+                - id: 1
+                  name: 'first notebook'
+                  created_date: '2020-03-27 21:00:00'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
   
-                - notebook_id: 2
-                  notebook_name: 'second notebook'
-                  createdDate: '2020-03-27 22:00:00'
+                - id: 2
+                  name: 'second notebook'
+                  created_date: '2020-03-27 22:00:00'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
 
@@ -69,7 +69,7 @@ paths:
           schema:
             type: object
             properties:
-              notebook_name:
+              name:
                 type: string
                 description:  name of notebook to create
 
@@ -79,11 +79,11 @@ paths:
           schema:
             type: object
             properties:
-              notebook_id:
+              id:
                 type: integer
-              notebook_name:
+              name:
                 type: string
-              createdDate:
+              created_date:
                   type: string
               docker_image_name:
                 type: string
@@ -94,14 +94,14 @@ paths:
           examples:
             success:
               value:
-                - notebook_id: 3
-                  notebook_name: 'New Notebook'
-                  createdDate: '2020-10-31 21:05:46'
+                - id: 3
+                  name: 'New Notebook'
+                  created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
                   status: 'Done'
 
-  /notebook/{notebook_id}:
+  /notebook/{id}:
     get:
       operationId: "notebook.getNotebookById"
       tags:
@@ -109,7 +109,7 @@ paths:
       summary: Read one notebook from the notebooks list
       description: Read one notebook from the notebooks list
       parameters:
-        - name: notebook_id
+        - name: id
           in: path
           description: "id"
           type: integer
@@ -119,11 +119,11 @@ paths:
           description: Successfully read notebook from notebooks list operation
           schema:
             properties:
-              notebook_id:
+              id:
                 type: integer
-              notebook_name:
+              name:
                 type: "string"
-              createdDate:
+              created_date:
                 type: "string"
               docker_image_name:
                 type: string
@@ -134,9 +134,9 @@ paths:
           examples:
             success:
               value:
-                - notebook_id: 1
-                  notebook_name: 'first notebook'
-                  createdDate: '2020-10-31 21:05:46'
+                - id: 1
+                  name: 'first notebook'
+                  created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
 
@@ -147,7 +147,7 @@ paths:
       summary: Update a notebook in the notebooks list
       description: Update a notebook in the notebooks list
       parameters:
-        - name: notebook_id
+        - name: id
           in: path
           description: "id of the notebook to update in the list"
           type: integer
@@ -158,7 +158,7 @@ paths:
           schema:
             type: object
             properties:
-              notebook_name:
+              name:
                 type: string
 
       responses:
@@ -166,11 +166,11 @@ paths:
           description: Successfully updated notebook from notebooks list operation
           schema:
             properties:
-              notebook_id:
+              id:
                 type: integer
-              notebook_name:
+              name:
                 type: "string"
-              createdDate:
+              created_date:
                 type: "string"
               docker_image_name:
                  type: string
@@ -179,9 +179,9 @@ paths:
           examples:
             success:
               value:
-                - notebook_id: 1
-                  notebook_name: 'new notebook name'
-                  createdDate: '2020-10-31 21:05:46'
+                - id: 1
+                  name: 'new notebook name'
+                  created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
 
@@ -193,7 +193,7 @@ paths:
       summary: Delete a notebook from the notebooks list
       description: Delete a notebook
       parameters:
-        - name: notebook_id
+        - name: id
           in: path
           type: integer
           required: True
@@ -215,54 +215,37 @@ paths:
             type: array
             items:
               properties:
-                training_id:
+                id:
                   type: integer
-                training_name:
+                name:
                   type: string
-                createdDate:
+                created_date:
                   type: string
-                endpoints:
-                  type: array
-                  items:
-                    properties:
-                      training_id:
-                        type: integer
-                      endpoint_id:
-                        type: integer
-                      endpoint_name:
-                        type: string
-                      createdDate:
-                        type: string
+                endpoints_count:
+                  type: integer
+                  #type: array
+                  #items:
+                  #  properties:
+                  #    training_id:
+                  #      type: integer
+                  #    endpoint_id:
+                  #      type: integer
+                  #    endpoint_name:
+                  #      type: string
+                  #    createdDate:
+                  #      type: string
           examples:
             success:
               value:
-                - training_id: 5
-                  training_name: 'first training'
-                  createdDate: '2020-03-27 21:00:00'
-                  endpoints:
-                    - endpoint_id: 1
-                      training_id: 5
-                      endpoint_name: 'my first endpoint'
-                      createdDate: '2020-03-27 20:00:00'
-
-                    - endpoint_id: 2
-                      training_id: 5
-                      endpoint_name: 'my second endpoint'
-                      createdDate: '2020-03-27 20:00:00'
+                - id: 5
+                  name: 'first training'
+                  created_date: '2020-03-27 21:00:00'
+                  endpoints_count: 2
                     
-                - training_id: 3
-                  training_name: 'second training'
-                  createdDate: '2020-03-27 22:00:00' 
-                  endpoints:
-                    - endpoint_id: 3
-                      training_id: 3
-                      endpoint_name: 'my first endpoint'
-                      createdDate: '2020-03-27 20:00:00'
-
-                    - endpoint_id: 4
-                      training_id: 3
-                      endpoint_name: 'my second endpoint'
-                      createdDate: '2020-03-27 20:00:00'
+                - id: 3
+                  name: 'second training'
+                  created_date: '2020-03-27 22:00:00' 
+                  endpoints: 3
                   
     post:
       operationId: training.newTraining
@@ -278,7 +261,7 @@ paths:
           schema:
             type: object
             properties:
-              training_name:
+              name:
                 type: string
                 description:  name of training to create
 
@@ -288,23 +271,23 @@ paths:
           schema:
             type: object
             properties:
-              training_name:
+              name:
                 type: string
-              training_id:
+              id:
                 type: integer
-              createdDate:
+              created_date:
                 type: string
               status:
                 type: string
           examples:
             success:
               value:
-                  training_id: 14
-                  training_name: 'a new training'
-                  createdDate: '2020-03-27 19:00:02'
+                  id: 14
+                  name: 'a new training'
+                  created_date: '2020-03-27 19:00:02'
                   status: 'Done'
 
-  /training/{training_id}:
+  /training/{id}:
     put:
       operationId: training.updateTraining
       tags:
@@ -312,7 +295,7 @@ paths:
       summary: Update a training in the trainings list
       description: Update a training in the trainings list
       parameters:
-        - name: training_id
+        - name: id
           in: path
           description: "id of the training to update in the list"
           type: integer
@@ -323,7 +306,7 @@ paths:
           schema:
             type: object
             properties:
-              training_name:
+              name:
                 type: string
 
       responses:
@@ -331,12 +314,20 @@ paths:
           description: Successfully updated training
           schema:
             properties:
-              training_id:
+              id:
                 type: integer
-              training_name:
+              name:
                 type: string
-              createdDate:
+              created_date:
                 type: string
+              endpoints_count:
+                type: integer
+          examples:
+            success:
+              value:
+                id: 4
+                name: 'Training name'
+                created_date: '2020-03-27 19:00:02'
 
     get:
       operationId: training.getTrainingById
@@ -345,7 +336,7 @@ paths:
       summary: Read one training from the trainings list
       description: Read one training from the trainings list
       parameters:
-        - name: training_id
+        - name: id
           in: path
           description: "id"
           type: integer
@@ -355,35 +346,21 @@ paths:
           description: Successfully read training from trainings list operation
           schema:
             properties:
-              training_name:
+              name:
                 type: "string"
-              training_id:
+              id:
                 type: integer
-              createdDate:
+              created_date:
                 type: "string"
-              endpoints:
-                type: array
-                items:
-                  properties:
-                    training_id:
-                      type: integer
-                    endpoint_id:
-                      type: integer
-                    endpoint_name:
-                      type: string
-                    createdDate:
-                        type: string
+              endpoints_count:
+                type: integer
           examples:
             success:
               value:
                 training_id: 7
                 training_name: 'my training'
                 createdDate: '2020-03-26 21:02:00'
-                endpoints:
-                  - training_id: 7
-                    endpoint_id: 3
-                    endpoint_name: 'first endpoint'
-                    createdDate: '2020-03-26 20:00:00'              
+                endpoints_count: 2              
 
     delete:
       operationId: training.deleteTraining
@@ -392,7 +369,7 @@ paths:
       summary: Delete a training from the trainings list
       description: Delete a training
       parameters:
-        - name: training_id
+        - name: id
           in: path
           type: integer
           required: True
@@ -414,14 +391,21 @@ paths:
             type: array
             items:
               properties:
-                endpoint_id:
+                id:
                   type: integer
-                endpoint_name:
+                name:
                   type: string
-                createdDate:
+                created_date:
                   type: string
-                training_id:
-                  type: integer
+                training:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    created_date:
+                      type: string
 
           examples:
             success:
@@ -429,13 +413,19 @@ paths:
                 - endpoint_id: 5
                   endpoint_name: 'first endpoint'
                   createdDate: '2020-03-27 21:00:00'
-                  training_id: 1
+                  training:
+                    id: 3
+                    name: 'training name'
+                    created_date: '2020-03-27 20:00:00'
 
 
                 - endpoint_id: 3
                   endpoint_name: 'second endpoint'
                   createdDate: '2020-03-27 22:00:00' 
-                  training_id: 2
+                  training:
+                    id: 7
+                    name: 'training name'
+                    created_date: '2020-03-27 20:00:00'
                               
   /endpoints/endpoint:             
     post:
@@ -452,7 +442,7 @@ paths:
           schema:
             type: object
             properties:
-              endpoint_name:
+              name:
                 type: string
               training_id:
                 type: integer
@@ -463,28 +453,38 @@ paths:
           schema:
             type: object
             properties:
-              endpoint_id:
+              id:
                 type: integer
-              training_id:
-                type: integer
-              endpoint_name:
+              name:
                 type: string
-              createdDate:
+              created_date:
                 type: string
               status:
                 type: string
+              training:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  created_date:
+                    type: string              
           examples:
             success:
               value:
                 endpoint_id: 14
-                training_id: 56
                 endpoint_name: 'newEndpoint'      
-                createdDate: '2020-03-27 19:00:02'
+                created_date: '2020-03-27 19:00:02'
                 status: 'Done'
+                training:
+                  id: 9
+                  name: 'training name'
+                  created_date: '2020-03-27 14:00:02'
         409:
           description: 'Endpoint already exists'
 
-  /endpoint/{endpoint_id}:
+  /endpoint/{id}:
     put:
       operationId: endpoint.updateEndpoint
       tags:
@@ -492,7 +492,7 @@ paths:
       summary: Update a endpoint in the endpoints list
       description: Update a endpoint in the endpoints list
       parameters:
-        - name: endpoint_id
+        - name: id
           in: path
           description: Id of the endpoint associated with a person
           type: integer
@@ -502,25 +502,43 @@ paths:
           schema:
             type: object
             properties:
-              endpoint_name:
+              name:
                 type: string
               training_id:
                 type: integer
 
       responses:
-        '200':
-          description: 'ok'
+        200:
+          description: 'Endpoint updated Successfully'
           schema:
             properties:
-              endpoint_id:
+              id:
                 type: string
-              training_id:
+              name:
                 type: string
-              endpoint_name:
+              created_date:
                 type: string
-              createdDate:
-                type: string
-        '404':
+              training:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  created_date:
+                    type: string
+          examples:
+            success:
+              value:
+                endpoint_id: 14
+                endpoint_name: 'Endpoint updated'      
+                created_date: '2020-03-27 19:00:02'
+                status: 'Done'
+                training:
+                  id: 9
+                  name: 'training name'
+                  created_date: '2020-03-27 14:00:02'
+        404:
           description: 'not found one endpoint with this id'
 
     get:
@@ -530,33 +548,41 @@ paths:
       summary: Read one endpoint from the endpoints list
       description: Read one endpoint from the endpoints list
       parameters:
-        - name: endpoint_id
+        - name: id
           in: path
           description: "id"
           type: integer
           required: True
-
       responses:
         201:
           description: Successfully read endpoint from endpoints list operation
           schema:
             properties:
-              endpoint_id:
+              id:
                 type: integer
-              training_id:
-                type: integer
-              endpoint_name:
+              name:
                 type: "string"
-              createdDate:
+              created_date:
                 type: "string"
-
+              training:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  created_date:
+                    type: string                
           examples:
             success:
               value:
-                endpoint_id: 7
-                training_id: 9 
-                endpoint_name: 'OneEndpoint'
-                createdDate: '2020-03-26 21:02:00'             
+                id: 7
+                name: 'OneEndpoint'
+                created_date: '2020-03-26 21:02:00'
+                training:
+                  id: 9
+                  name: 'training name'
+                  created_date: '2020-03-27 14:00:02'             
 
         404:
           description: 'Unable to find the endpoint with given endpoint_id'
@@ -568,7 +594,7 @@ paths:
       summary: Delete a endpoint from the endpoints list
       description: Delete a endpoint
       parameters:
-        - name: endpoint_id
+        - name: id
           in: path
           type: integer
           required: True
