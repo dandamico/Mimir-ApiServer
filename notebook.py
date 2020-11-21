@@ -14,7 +14,7 @@ def newNotebook(notebook):
     
     if existing_notebook is None:
 
-        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"))
+        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"), status= "pending")
 
         db.session.add(newNotebook)
         db.session.commit()
@@ -49,7 +49,7 @@ def deleteNotebook(id):
 
     else:
         abort(
-            404, "Notebook with this name: {id} not found".format(id= id)
+            404, "Notebook with this id: {id} not found".format(id= id)
         )
 
 def updateNotebook(id,notebook):

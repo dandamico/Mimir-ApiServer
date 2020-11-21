@@ -13,6 +13,7 @@ mysqldb = "*"
 pymysql = "*"
 mysql = "*"
 mysql-python = "*"
+pika = "*"
 
 [requires]
 python_version = "3.7"

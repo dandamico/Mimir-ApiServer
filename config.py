@@ -9,7 +9,7 @@ connex_app = connexion.App(__name__,specification_dir=basedir)
 
 app = connex_app.app
 
-sqlite_url = 'mysql+pymysql://root:0satellite0@localhost/mimir'
+mysql_url = 'mysql+pymysql://root:0satellite0@localhost/mimir'
 
 def createDB():
 	db = mysql.connect(
@@ -21,7 +21,7 @@ def createDB():
 	cursor.execute("CREATE DATABASE mimir")
 
 app.config["SQLALCHEMY_ECHO"] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = sqlite_url
+app.config["SQLALCHEMY_DATABASE_URI"] = mysql_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
