@@ -2,7 +2,7 @@ import pika
 import uuid
 import notebook
 from models import Notebook
-import json
+
 class FibonacciRpcClient(object):
 
     def __init__(self):

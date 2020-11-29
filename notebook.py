@@ -1,9 +1,6 @@
 from flask import make_response, abort, jsonify, request
 from config import db
 from models import Notebook
-#import sys
-#sys.path.append('/home/daniele/engine-prova')
-#from tasks import createNotebook
 from rpc_client import FibonacciRpcClient
 
 def getAllNotebook():
