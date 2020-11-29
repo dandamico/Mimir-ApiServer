@@ -19,9 +19,6 @@ def newNotebook(notebook):
 
         db.session.add(newNotebook)
         db.session.commit()
-
-        #print(" [x] Requesting creating notebook")
-        #response = createNotebook(newNotebook)
         
         fibonacci_rpc = FibonacciRpcClient()
         print(" [x] Requesting creating notebook")
