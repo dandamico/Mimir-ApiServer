@@ -1,6 +1,10 @@
 from flask import make_response, abort, jsonify, request
 from config import db
 from models import Notebook
+#import sys
+#sys.path.append('/home/daniele/engine-prova')
+#from tasks import createNotebook
+from rpc_client import FibonacciRpcClient
 
 def getAllNotebook():
 
@@ -19,11 +23,19 @@ def newNotebook(notebook):
         db.session.add(newNotebook)
         db.session.commit()
 
+        #print(" [x] Requesting creating notebook")
+        #response = createNotebook(newNotebook)
+        
+        fibonacci_rpc = FibonacciRpcClient()
+        print(" [x] Requesting creating notebook")
+        response = fibonacci_rpc.call(newNotebook.id)
+        print(" [.] Successfully")
         
         return jsonify(newNotebook.serialize()), 201
 
     else:
         abort(409,"Notebook {name} exists already".format(name= name),)
+        
 
 def getNotebookById(id):
 
@@ -59,10 +71,8 @@ def updateNotebook(id,notebook):
 
     if update_notebook is not None:
         data = request.get_json() 
-
         
         update_notebook.deserialize(data)
-        
         
         db.session.commit()
 

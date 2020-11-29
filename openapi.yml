@@ -223,17 +223,6 @@ paths:
                   type: string
                 endpoints_count:
                   type: integer
-                  #type: array
-                  #items:
-                  #  properties:
-                  #    training_id:
-                  #      type: integer
-                  #    endpoint_id:
-                  #      type: integer
-                  #    endpoint_name:
-                  #      type: string
-                  #    createdDate:
-                  #      type: string
           examples:
             success:
               value:
@@ -359,7 +348,7 @@ paths:
               value:
                 training_id: 7
                 training_name: 'my training'
-                createdDate: '2020-03-26 21:02:00'
+                created_date: '2020-03-26 21:02:00'
                 endpoints_count: 2              
 
     delete:
@@ -412,7 +401,7 @@ paths:
               value:
                 - endpoint_id: 5
                   endpoint_name: 'first endpoint'
-                  createdDate: '2020-03-27 21:00:00'
+                  created_date: '2020-03-27 21:00:00'
                   training:
                     id: 3
                     name: 'training name'
@@ -421,7 +410,7 @@ paths:
 
                 - endpoint_id: 3
                   endpoint_name: 'second endpoint'
-                  createdDate: '2020-03-27 22:00:00' 
+                  created_date: '2020-03-27 22:00:00' 
                   training:
                     id: 7
                     name: 'training name'

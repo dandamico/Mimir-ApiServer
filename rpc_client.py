@@ -2,6 +2,7 @@ import pika
 import uuid
 import notebook
 from models import Notebook
+import json
 class FibonacciRpcClient(object):
 
     def __init__(self):
@@ -35,11 +36,5 @@ class FibonacciRpcClient(object):
             body=str(n))
         while self.response is None:
             self.connection.process_data_events()
-        return int(self.response)
+        return str(self.response)
 
-#da qui in giu se funziona metti su newNotebook
-fibonacci_rpc = FibonacciRpcClient()
-
-print(" [x] Requesting creating notebook")
-response = fibonacci_rpc.call(1)
-print(" [.] %r" % response)
