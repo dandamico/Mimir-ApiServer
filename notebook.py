@@ -1,7 +1,7 @@
 from flask import make_response, abort, jsonify, request
 from config import db
 from models import Notebook
-from rpc_client import FibonacciRpcClient
+from rpc_client import NotebookRpcClient
 
 def getAllNotebook():
 
@@ -20,9 +20,13 @@ def newNotebook(notebook):
         db.session.add(newNotebook)
         db.session.commit()
         
-        fibonacci_rpc = FibonacciRpcClient()
+        notebook_request_rpc = NotebookRpcClient()
         print(" [x] Requesting creating notebook")
-        response = fibonacci_rpc.call(newNotebook.id)
+        message = {
+            'id': newNotebook.id,
+            'action': 'Create'
+        }
+        response = notebook_request_rpc.call(message)
         print(" [.] Successfully")
         
         return jsonify(newNotebook.serialize()), 201
