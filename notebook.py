@@ -50,6 +50,15 @@ def deleteNotebook(id):
     notebook = Notebook.query.filter(Notebook.id == id).one_or_none()
 
     if notebook is not None:
+
+        notebook_request_rpc = NotebookRpcClient()
+        print(" [x] Requesting deleting notebook")
+        message = {
+            'id': notebook.id,
+            'action': 'Delete'
+        }
+        response = notebook_request_rpc.call(message)
+        print(" [.] Successfully")
         db.session.delete(notebook)
         db.session.commit()
 
