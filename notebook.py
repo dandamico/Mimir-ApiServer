@@ -5,7 +5,7 @@ from rpc_client import NotebookRpcClient
 
 def getAllNotebook():
 
-    notebooks = Notebook.query.order_by(Notebook.name).all()   
+    notebooks = Notebook.query.order_by(Notebook.id).all()   
     return jsonify(notebooks=[notebook.serialize() for notebook in notebooks]) 
 
 
@@ -15,7 +15,7 @@ def newNotebook(notebook):
     
     if existing_notebook is None:
 
-        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"), status= "pending")
+        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"), status= "pending", notebook_url= notebook.get("name")+"notebooks.kubernetes.local")
 
         db.session.add(newNotebook)
         db.session.commit()
@@ -24,6 +24,7 @@ def newNotebook(notebook):
         print(" [x] Requesting creating notebook")
         message = {
             'id': newNotebook.id,
+            'name': newNotebook.name,
             'action': 'Create'
         }
         response = notebook_request_rpc.call(message)

@@ -39,6 +39,10 @@ paths:
                   type: string
                 deployment_name:
                   type: string
+                notebook_url:
+                  type: string
+                status: 
+                  type: string
           examples:
             success:
               value:
@@ -47,12 +51,16 @@ paths:
                   created_date: '2020-03-27 21:00:00'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
+                  notebook_url: '192.48.36.2:25896'
+                  status: 'created'
   
                 - id: 2
                   name: 'second notebook'
                   created_date: '2020-03-27 22:00:00'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
+                  notebook_url: '192.48.36.2:31522'
+                  status: 'created'
 
 
     post:
@@ -99,6 +107,7 @@ paths:
                   created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
+                  notebook_url: '192.48.36.2:55842'
                   status: 'Done'
 
   /notebook/{id}:
@@ -129,6 +138,10 @@ paths:
                 type: string
               deployment_name:
                 type: string
+              notebook_url:
+                type: string
+              status:
+                type: string
 
 
           examples:
@@ -139,6 +152,8 @@ paths:
                   created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
+                  notebook_url: '192.48.36.2:48951'
+                  status: 'created'
 
     put:
       operationId: notebook.updateNotebook
@@ -176,6 +191,10 @@ paths:
                  type: string
               deployment_name:
                 type: string
+              notebook_url:
+                type: string
+              status:
+                type: string
           examples:
             success:
               value:
@@ -184,6 +203,8 @@ paths:
                   created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
+                  notebook_url: '192.48.36.2:15455'
+                  status: 'created'
 
 
     delete:

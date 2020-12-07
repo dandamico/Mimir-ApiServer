@@ -6,7 +6,7 @@ from models import Training, Endpoint
 
 def getAllTraining():
 
-    trainings = Training.query.order_by(Training.name).all()
+    trainings = Training.query.order_by(Training.id).all()
     return jsonify(trainings=[training.serialize() for training in trainings]) 
 
 

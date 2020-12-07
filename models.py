@@ -11,20 +11,22 @@ class Notebook(db.Model):
 	created_date = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 	docker_image_name = db.Column(db.String(120))
 	deployment_name = db.Column(db.String(120))
+	notebook_url = db.Column(db.String(120))
 	status = db.Column(db.String(120))
 	
 	def serialize(self):
 		return {
 			"id": self.id,
 			"name": self.name,
-			"created_date": str(datetime.now()),
+			"created_date": self.created_date,
 			"docker_image_name": self.docker_image_name,
 			"deployment_name": self.deployment_name,
+			"notebook_url": self.notebook_url,
 			"status": self.status
 		}
 
 	def deserialize(self, data):
-		for field in ['id', 'name', 'created_date', 'docker_image_name', 'deployment_name', 'status']:
+		for field in ['id', 'name', 'created_date', 'docker_image_name', 'deployment_name','notebook_url', 'status']:
 			if field in data:
 				setattr(self,field, data[field])
 
@@ -44,7 +46,7 @@ class Training(db.Model):
 		return {
 			"id": self.id,
 			"name": self.name,
-			"created_date": str(datetime.now()),
+			"created_date": self.created_date,
 			"endpoints_count": self.endpoints.count(),
 			"status": self.status
 		}
@@ -71,7 +73,7 @@ class Endpoint(db.Model):
 		return {
 			"id": self.id,
 			"name": self.name,
-			"createdDate": str(datetime.now()),
+			"created_date": self.created_date,
 			"training": self.training.serialize(),
 			"status": self.status
 		}
