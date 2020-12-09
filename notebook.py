@@ -15,7 +15,7 @@ def newNotebook(notebook):
     
     if existing_notebook is None:
 
-        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"), status= "pending", notebook_url= notebook.get("name")+"notebooks.kubernetes.local")
+        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"), status= "pending", notebook_url= notebook.get("name")+".notebooks.kubernetes.local")
 
         db.session.add(newNotebook)
         db.session.commit()
