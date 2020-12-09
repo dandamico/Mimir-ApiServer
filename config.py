@@ -25,7 +25,7 @@ def createDB():
 	cursor.execute("CREATE DATABASE mimir")
 
 app.config["SQLALCHEMY_ECHO"] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = MYSQL_URL
+app.config["SQLALCHEMY_DATABASE_URI"] = MYSQL_URL+"mimir"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
