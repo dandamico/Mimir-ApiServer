@@ -47,19 +47,19 @@ paths:
             success:
               value:
                 - id: 1
-                  name: 'first notebook'
+                  name: 'foo'
                   created_date: '2020-03-27 21:00:00'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
-                  notebook_url: '192.48.36.2:25896'
+                  notebook_url: 'foo-1.notebooks.kubernetes.local'
                   status: 'created'
   
                 - id: 2
-                  name: 'second notebook'
+                  name: 'bar'
                   created_date: '2020-03-27 22:00:00'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
-                  notebook_url: '192.48.36.2:31522'
+                  notebook_url: 'bar-2.notebooks.kubernetes.local'
                   status: 'created'
 
 
@@ -103,12 +103,12 @@ paths:
             success:
               value:
                 - id: 3
-                  name: 'New Notebook'
+                  name: 'another_foo'
                   created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
-                  notebook_url: '192.48.36.2:55842'
-                  status: 'Done'
+                  notebook_url: 'another_foo-3.notebooks.kubernetes.local'
+                  status: 'created'
 
   /notebook/{id}:
     get:
@@ -148,11 +148,11 @@ paths:
             success:
               value:
                 - id: 1
-                  name: 'first notebook'
+                  name: 'foo'
                   created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
-                  notebook_url: '192.48.36.2:48951'
+                  notebook_url: 'foo-1.notebooks.kubernetes.local'
                   status: 'created'
 
     put:
@@ -199,11 +199,11 @@ paths:
             success:
               value:
                 - id: 1
-                  name: 'new notebook name'
+                  name: 'NewName'
                   created_date: '2020-10-31 21:05:46'
                   docker_image_name: 'This is a docker image'
                   deployment_name: 'deployment'
-                  notebook_url: '192.48.36.2:15455'
+                  notebook_url: 'NewName-1.notebooks.kubernetes.local'
                   status: 'created'
 
 

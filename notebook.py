@@ -2,6 +2,9 @@ from flask import make_response, abort, jsonify, request
 from config import db
 from models import Notebook
 from rpc_client import NotebookRpcClient
+import os
+
+DOMAIN_NAME=os.environ.get("DOMAIN_NAME")
 
 def getAllNotebook():
 
@@ -15,8 +18,9 @@ def newNotebook(notebook):
     
     if existing_notebook is None:
 
-        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"), status= "pending", notebook_url= notebook.get("name")+".notebooks.kubernetes.local")
+        newNotebook = Notebook(id = notebook.get("id"), name = notebook.get("name"), status= "pending") 
 
+        
         db.session.add(newNotebook)
         db.session.commit()
         
