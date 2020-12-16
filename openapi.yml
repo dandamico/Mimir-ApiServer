@@ -3,14 +3,13 @@ info:
   description: This is the swagger file that goes with our server code
   version: "1.0.0"
   title: Swagger REST Article
-consumes:
-  - "application/json"
-produces:
-  - "application/json"
+
 
 basePath: "/api"
-
-
+consumes:
+  - application/json
+produces:
+  - application/json
 
 paths:
                 
@@ -256,25 +255,31 @@ paths:
                   name: 'second training'
                   created_date: '2020-03-27 22:00:00' 
                   endpoints: 3
-                  
+  /training/{name}:            
     post:
       operationId: training.newTraining
       tags:
         - Training
       summary: Create a training and add it to the trainings list
       description: Create a new training in the trainings list
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      
       parameters:
-        - name: training
-          in: body
-          description: training to create
-          required: True
-          schema:
-            type: object
-            properties:
-              name:
-                type: string
-                description:  name of training to create
 
+        - name: name
+          in: path
+          required: True
+          type: string
+
+        - name: file
+          in: formData
+          type: file
+          required: True
+              
+ 
       responses:
         201:
           description: Successfully created training in list
@@ -289,13 +294,20 @@ paths:
                 type: string
               status:
                 type: string
+              filename:
+                type: string
+              filedata:
+                type: string
+                format: base64
           examples:
             success:
               value:
                   id: 14
-                  name: 'a new training'
+                  name: 'foo'
                   created_date: '2020-03-27 19:00:02'
                   status: 'Done'
+                  filename: 'mimir.zip'         
+
 
   /training/{id}:
     put:
@@ -338,6 +350,7 @@ paths:
                 id: 4
                 name: 'Training name'
                 created_date: '2020-03-27 19:00:02'
+
 
     get:
       operationId: training.getTrainingById

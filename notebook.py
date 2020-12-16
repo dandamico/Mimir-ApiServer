@@ -1,7 +1,7 @@
 from flask import make_response, abort, jsonify, request
 from config import db
 from models import Notebook
-from rpc_client import NotebookRpcClient
+from rpc_client import RpcClient
 import os
 
 DOMAIN_NAME=os.environ.get("DOMAIN_NAME")
@@ -24,14 +24,15 @@ def newNotebook(notebook):
         db.session.add(newNotebook)
         db.session.commit()
         
-        notebook_request_rpc = NotebookRpcClient()
+        request_rpc = RpcClient()
         print(" [x] Requesting creating notebook")
         message = {
             'id': newNotebook.id,
             'name': newNotebook.name,
-            'action': 'Create'
+            'type': 'Notebook',
+            'action': 'Create',
         }
-        response = notebook_request_rpc.call(message)
+        response = request_rpc.call(message)
         print(" [.] Successfully")
         
         return jsonify(newNotebook.serialize()), 201

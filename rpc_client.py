@@ -4,7 +4,7 @@ import notebook
 from models import Notebook
 import json
 
-class NotebookRpcClient(object):
+class RpcClient(object):
 
     def __init__(self):
         self.connection = pika.BlockingConnection(
@@ -25,6 +25,7 @@ class NotebookRpcClient(object):
             self.response = body
 
     def call(self, message):
+
         self.response = None
         self.corr_id = str(uuid.uuid4())
         self.channel.basic_publish(
@@ -34,5 +35,6 @@ class NotebookRpcClient(object):
                 reply_to=self.callback_queue,
                 correlation_id=self.corr_id,
             ),
-            body=json.dumps(message))
+            body=json.dumps(message))   
+
 

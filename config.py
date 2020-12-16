@@ -14,6 +14,8 @@ connex_app = connexion.App(__name__,specification_dir=basedir)
 
 app = connex_app.app
 
+UPLOAD_FOLDER = os.environ.get("PATH_FOLDER")
+
 def createDB():
 	db = mysql.connect(
 		host=MYSQL_HOST,
@@ -27,6 +29,6 @@ def createDB():
 app.config["SQLALCHEMY_ECHO"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = MYSQL_URL+"mimir"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
 db = SQLAlchemy(app)
 
