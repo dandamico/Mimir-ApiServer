@@ -1,7 +1,7 @@
 from flask import make_response, abort, jsonify, request
 from config import db, app
 from models import Training, Endpoint
-import json, os
+import os
 from os.path import join
 from rpc_client import RpcClient
 
@@ -19,11 +19,9 @@ def newTraining(name):
     newTraining = Training(name = str(name), status = "pending")
 
     if uploaded_file.filename != '':
-           
-        newTraining.filename = uploaded_file.filename
-        
+                   
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
-        
+        newTraining.file_path = file_path
         uploaded_file.save(file_path)
 
         db.session.add(newTraining)

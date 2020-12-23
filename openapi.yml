@@ -294,11 +294,9 @@ paths:
                 type: string
               status:
                 type: string
-              filename:
+              file_path:
                 type: string
-              filedata:
-                type: string
-                format: base64
+              
           examples:
             success:
               value:
@@ -306,7 +304,7 @@ paths:
                   name: 'foo'
                   created_date: '2020-03-27 19:00:02'
                   status: 'Done'
-                  filename: 'mimir.zip'         
+                  file_path: 'home/User/mimir.zip'         
 
 
   /training/{id}:
