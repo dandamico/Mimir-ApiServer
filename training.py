@@ -21,7 +21,10 @@ def newTraining(name):
     if uploaded_file.filename != '':
                    
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+
         newTraining.file_path = file_path
+        newTraining.file_name = uploaded_file.filename
+        
         uploaded_file.save(file_path)
 
         db.session.add(newTraining)
@@ -29,6 +32,7 @@ def newTraining(name):
 
         request_rpc = RpcClient()
         print(" [x] Requesting creating training")
+        
         message = {
             'id': newTraining.id,
             'name': newTraining.name,
@@ -37,6 +41,7 @@ def newTraining(name):
             'file_path': file_path,
             'file_name': uploaded_file.filename
         }
+        
         response = request_rpc.call(message)
         print(" [.] Successfully")
 

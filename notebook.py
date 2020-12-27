@@ -4,8 +4,6 @@ from models import Notebook
 from rpc_client import RpcClient
 import os
 
-DOMAIN_NAME=os.environ.get("DOMAIN_NAME")
-
 def getAllNotebook():
 
     notebooks = Notebook.query.order_by(Notebook.id).all()   
@@ -26,12 +24,14 @@ def newNotebook(notebook):
         
         request_rpc = RpcClient()
         print(" [x] Requesting creating notebook")
+        
         message = {
             'id': newNotebook.id,
             'name': newNotebook.name,
             'type': 'Notebook',
             'action': 'Create',
         }
+
         response = request_rpc.call(message)
         print(" [.] Successfully")
         

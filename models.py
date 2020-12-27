@@ -42,7 +42,7 @@ class Training(db.Model):
 	endpoints = db.relationship("Endpoint", back_populates= "training", cascade= "all, delete, delete-orphan", lazy= 'dynamic')
 	status = db.Column(db.String(120))
 	file_path = db.Column(db.String(120))
-	
+	file_name = db.Column(db.String(120))
 	
 	def serialize(self):
 		return {
@@ -52,11 +52,12 @@ class Training(db.Model):
 			"endpoints_count": self.endpoints.count(),
 			"status": self.status,
 			"file_path": self.file_path,
+			"file_name": self.file_name
 			
 		}
 
 	def deserialize(self, data):
-		for field in ['id', 'name', 'created_date', 'endpoints_count', 'status', 'file_path']:
+		for field in ['id', 'name', 'created_date', 'endpoints_count', 'status', 'file_path', 'file_name']:
 			if field in data:
 				setattr(self,field, data[field])
 
