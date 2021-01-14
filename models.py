@@ -8,7 +8,7 @@ class Notebook(db.Model):
 	__tablename__= "notebook"
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(120))
-	created_date = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+	created_date = db.Column( db.DateTime, default=datetime.now(), onupdate=datetime.now())
 	docker_image_name = db.Column(db.String(120))
 	deployment_name = db.Column(db.String(120))
 	notebook_url = db.Column(db.String(120))
@@ -38,7 +38,7 @@ class Training(db.Model):
 	__tablename__= "training"
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(120))
-	created_date = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+	created_date = db.Column( db.DateTime, default=datetime.now(), onupdate=datetime.now())
 	endpoints = db.relationship("Endpoint", back_populates= "training", cascade= "all, delete, delete-orphan", lazy= 'dynamic')
 	status = db.Column(db.String(120))
 	file_path = db.Column(db.String(120))
@@ -68,7 +68,7 @@ class Endpoint(db.Model):
 	__tablename__= "endpoint"
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(120))
-	created_date = db.Column( db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+	created_date = db.Column( db.DateTime, default=datetime.now(), onupdate=datetime.now())
 	training_id = db.Column(db.Integer, db.ForeignKey('training.id'))
 	training = db.relationship("Training", back_populates="endpoints")
 	status = db.Column(db.String(120))

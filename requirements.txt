@@ -1,0 +1,5 @@
+mysql-connector
+pymysql
+pika
+connexion[swagger-ui]
+flask-sqlalchemy

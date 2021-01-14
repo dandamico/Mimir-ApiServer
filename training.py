@@ -20,7 +20,7 @@ def newTraining(name):
 
     if uploaded_file.filename != '':
                    
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+        file_path = os.path.join(app.config['PATH_FOLDER'], uploaded_file.filename)
 
         newTraining.file_path = file_path
         newTraining.file_name = uploaded_file.filename

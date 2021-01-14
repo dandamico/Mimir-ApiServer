@@ -57,10 +57,11 @@ def deleteNotebook(id):
 
     if notebook is not None:
 
-        notebook_request_rpc = NotebookRpcClient()
+        notebook_request_rpc = RpcClient()
         print(" [x] Requesting deleting notebook")
         message = {
             'id': notebook.id,
+            'type': 'Notebook',
             'action': 'Delete'
         }
         response = notebook_request_rpc.call(message)
