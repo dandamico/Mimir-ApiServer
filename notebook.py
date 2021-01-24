@@ -38,7 +38,7 @@ def newNotebook(notebook):
         return jsonify(newNotebook.serialize()), 201
 
     else:
-        abort(409,"Notebook {name} exists already".format(name= name),)
+        abort(409,"Notebook name exists already")
         
 
 def getNotebookById(id):
@@ -56,7 +56,7 @@ def deleteNotebook(id):
     notebook = Notebook.query.filter(Notebook.id == id).one_or_none()
 
     if notebook is not None:
-
+        
         notebook_request_rpc = RpcClient()
         print(" [x] Requesting deleting notebook")
         message = {
@@ -66,6 +66,7 @@ def deleteNotebook(id):
         }
         response = notebook_request_rpc.call(message)
         print(" [.] Successfully")
+        
         db.session.delete(notebook)
         db.session.commit()
 

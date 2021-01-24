@@ -3,12 +3,19 @@ import uuid
 import notebook
 from models import Notebook
 import json
+import os
 
-class RpcClient(object):
+class Rabbit:
+    host= os.environ.get("HOST_RABBITMQ")
+    user= os.environ.get("USER_RABBITMQ")
+    password= os.environ.get("PASSWORD_RABBITMQ")
+
+class RpcClient(Rabbit):
 
     def __init__(self):
-        self.connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='localhost'))
+        credentials = pika.PlainCredentials(self.user, self.password)
+        params = pika.ConnectionParameters(self.host, 5672, '/', credentials)
+        self.connection = pika.BlockingConnection(params)
 
         self.channel = self.connection.channel()
 
@@ -35,6 +42,4 @@ class RpcClient(object):
                 reply_to=self.callback_queue,
                 correlation_id=self.corr_id,
             ),
-            body=json.dumps(message))   
-
-
+            body=json.dumps(message)) 
