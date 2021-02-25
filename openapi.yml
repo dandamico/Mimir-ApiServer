@@ -14,13 +14,12 @@ produces:
 paths:
                 
   /notebook:
-
     get:
+      summary: Read the entire list of notebook
+      description: Read the list of notebook
       operationId: notebook.getAllNotebook
       tags:
         - Notebook
-      summary: Read the entire list of notebook
-      description: Read the list of notebook
       responses:
         200:
           description: "Successful read notebook list operation"
